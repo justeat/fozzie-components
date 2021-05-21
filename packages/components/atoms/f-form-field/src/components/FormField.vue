@@ -347,7 +347,7 @@ $form-input-focus--boxShadow              : 0 0 0 2px $form-input-focus;
 
     .c-formField-field--textarea {
         background-clip: padding-box;
-        padding: spacing(x2);
+        padding: spacing(x3);
         resize: none;
     }
 
