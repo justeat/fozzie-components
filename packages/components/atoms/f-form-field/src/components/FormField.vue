@@ -91,7 +91,8 @@
                 :class="[
                     $style['c-formField-icon'],
                     $style[`c-formField-icon--${fieldSize}`] ,
-                    $style[`c-formField-icon--${iconPosition}`]
+                    $style[`c-formField-icon--${iconPosition}`],
+                    { [$style[`c-formField-icon--disabled`]]: $attrs.disabled }
                 ]">
                 <slot
                     name="icon"
@@ -374,7 +375,14 @@ export default {
 
             path {
                 fill: $color-content-subdued;
+            }
+        }
+    }
 
+    .c-formField-icon--disabled {
+        svg {
+            path {
+                fill: $color-content-disabled;
             }
         }
     }
@@ -406,7 +414,7 @@ export default {
         padding-left: spacing(x7);
     }
 
-    .c-formField-field--icon-left {
+    .c-formField-field--icon-right {
         padding-right: spacing(x7);
     }
 </style>

@@ -4,7 +4,8 @@
         <caret-icon
             :class="[
                 $style['c-formDropdown-icon'],
-                $style[`c-formDropdown-icon-${fieldSize}`]
+                $style[`c-formDropdown-icon-${fieldSize}`],
+                { [$style['c-formDropdown-icon--disabled']]: attributes.disabled }
             ]"
             :data-test-id="testId.icon" />
         <select
@@ -109,6 +110,13 @@ export default {
     path {
         fill: $color-content-subdued;
     }
+}
+
+.c-formDropdown-icon--disabled {
+    path {
+        fill: $color-content-disabled;
+    }
+
 }
 
 .c-formDropdown-select {
