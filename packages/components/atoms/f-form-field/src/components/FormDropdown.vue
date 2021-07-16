@@ -2,7 +2,10 @@
     <div
         :data-test-id="testId.container">
         <caret-icon
-            :class="$style['c-formDropdown-icon']"
+            :class="[
+                $style['c-formDropdown-icon'],
+                $style[`c-formDropdown-icon-${fieldSize}`]
+            ]"
             :data-test-id="testId.icon" />
         <select
             :id="$attrs.id"
@@ -58,6 +61,10 @@ export default {
         hasError: {
             type: Boolean,
             default: false
+        },
+        isDisabled: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -83,11 +90,19 @@ export default {
 </script>
 
 <style lang="scss" module>
+.c-formDropdown-icon-small {
+    bottom: 17px;
+}
+.c-formDropdown-icon-medium {
+    bottom: 21px;
+}
+.c-formDropdown-icon-large {
+    bottom: 25px;
+}
 .c-formDropdown-icon {
     width: spacing(x1.5);
     position: absolute;
     right: spacing(x3);
-    bottom: 20px;
     transform: rotate(180deg);
     pointer-events: none;
 

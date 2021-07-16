@@ -367,30 +367,28 @@ export default {
 
     .c-formField-icon {
         svg {
-            // bottom: 15px;
             position: absolute;
             display: block;
-            max-height: 18px;
-            max-width: 18px;
+            height: 18px;
+            width: 18px;
+
+            path {
+                fill: $color-content-subdued;
+
+            }
         }
     }
 
     .c-formField-icon--small {
-        svg {
-            bottom: 11px;
-        }
+        @include icon-position(11px)
     }
 
     .c-formField-icon--medium {
-        svg {
-            bottom: 15px;
-        }
+        @include icon-position(15px)
     }
 
     .c-formField-icon--large {
-        svg {
-            bottom: 19px;
-        }
+        @include icon-position(19px)
     }
 
     .c-formField-icon--left {
@@ -402,5 +400,13 @@ export default {
         svg {
             right: 19px;
         }
+    }
+
+    .c-formField-field--icon-left {
+        padding-left: spacing(x7);
+    }
+
+    .c-formField-field--icon-left {
+        padding-right: spacing(x7);
     }
 </style>
