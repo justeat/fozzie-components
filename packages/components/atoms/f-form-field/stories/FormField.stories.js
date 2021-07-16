@@ -2,6 +2,9 @@ import {
     withKnobs, select, text, boolean, object
 } from '@storybook/addon-knobs';
 import { withA11y } from '@storybook/addon-a11y';
+import {
+    MoreVerticalIcon
+} from '@justeat/f-vue-icons';
 import FormField from '../src/components/FormField.vue';
 import {
     CUSTOM_INPUT_TYPES,
@@ -17,7 +20,10 @@ export default {
 };
 
 export const FormFieldComponent = () => ({
-    components: { FormField },
+    components: {
+        FormField,
+        MoreVerticalIcon
+    },
     props: {
         locale: {
             default: select('Locale', ['en-GB', 'en-AU'])
@@ -51,6 +57,12 @@ export const FormFieldComponent = () => ({
         },
         hasInputDescription: {
             default: boolean('hasExtraLabelText', false)
+        },
+        hasIcon: {
+            default: boolean('hasIcon', false)
+        },
+        iconPosition: {
+            default: select('iconPosition', ['left', 'right'])
         }
     },
     parameters: {
@@ -70,8 +82,13 @@ export const FormFieldComponent = () => ({
             :cols="30"
             :rows="7"
             :maxlength="200"
+            :hasIcon="hasIcon"
+            :iconPosition="iconPosition"
             :has-input-description="hasInputDescription">
                 Here is a bit more text to show
+                <template v-slot:icon>
+                    <MoreVerticalIcon />
+                </template>
         </form-field>`
 });
 

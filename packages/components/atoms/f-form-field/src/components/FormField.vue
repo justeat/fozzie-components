@@ -85,6 +85,18 @@
                 :data-test-id="`${testId.label}--inline`">
                 {{ labelText }}
             </form-label>
+
+            <span
+                v-if="hasIcon"
+                :class="[
+                    $style['c-formField-icon'],
+                    $style[`c-formField-icon--${fieldSize}`] ,
+                    $style[`c-formField-icon--${iconPosition}`]
+                ]">
+                <slot
+                    name="icon"
+                />
+            </span>
         </div>
         <slot name="error" />
     </div>
@@ -178,6 +190,16 @@ export default {
         hasInputDescription: {
             type: Boolean,
             default: false
+        },
+
+        hasIcon: {
+            type: Boolean,
+            default: false
+        },
+
+        iconPosition: {
+            type: String,
+            default: 'left'
         }
     },
 
@@ -341,5 +363,44 @@ export default {
     .c-formField-label-description {
         display: block;
         font-weight: normal;
+    }
+
+    .c-formField-icon {
+        svg {
+            // bottom: 15px;
+            position: absolute;
+            display: block;
+            max-height: 18px;
+            max-width: 18px;
+        }
+    }
+
+    .c-formField-icon--small {
+        svg {
+            bottom: 11px;
+        }
+    }
+
+    .c-formField-icon--medium {
+        svg {
+            bottom: 15px;
+        }
+    }
+
+    .c-formField-icon--large {
+        svg {
+            bottom: 19px;
+        }
+    }
+
+    .c-formField-icon--left {
+        svg {
+            left: 19px;
+        }
+    }
+    .c-formField-icon--right {
+        svg {
+            right: 19px;
+        }
     }
 </style>
