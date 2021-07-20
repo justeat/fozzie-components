@@ -15,7 +15,7 @@ import {
 } from '../src/constants';
 
 export default {
-    title: 'Components/Atoms',
+    title: 'Components/Atoms/f-form-field',
     decorators: [withKnobs, withA11y]
 };
 
@@ -86,10 +86,7 @@ export const FormFieldComponent = () => ({
             :iconPosition="iconPosition"
             :has-input-description="hasInputDescription">
                 Here is a bit more text to show
-                <template v-slot:icon>
-                    <AllergyNutIcon />
-                </template>
         </form-field>`
 });
 
-FormFieldComponent.storyName = 'f-form-field';
+FormFieldComponent.storyName = 'Form Field';

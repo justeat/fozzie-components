@@ -2,6 +2,8 @@ export const VALID_INPUT_TYPES = ['text', 'email', 'password', 'radio', 'checkbo
 export const CUSTOM_INPUT_TYPES = ['dropdown', 'textarea'];
 export const DEFAULT_INPUT_TYPE = 'text';
 
+export const VALID_ICON_INPUT_TYPES = ['text', 'email', 'password', 'number', 'tel', 'dropdown'];
+
 export const VALID_LABEL_STYLES = ['default', 'inline', 'inlineNarrow'];
 
 export const DEFAULT_FIELD_SIZE = 'medium';

@@ -1,10 +1,10 @@
 <template>
     <div
+        :class="$style[`c-formDropdown-icon-${fieldSize}`]"
         :data-test-id="testId.container">
         <caret-icon
             :class="[
                 $style['c-formDropdown-icon'],
-                $style[`c-formDropdown-icon-${fieldSize}`],
                 { [$style['c-formDropdown-icon--disabled']]: attributes.disabled }
             ]"
             :data-test-id="testId.icon" />
@@ -91,15 +91,22 @@ export default {
 </script>
 
 <style lang="scss" module>
+$icon-positon--small            : 17px;
+$icon-positon--medium           : 21px;
+$icon-positon--large            : 25px;
+
 .c-formDropdown-icon-small {
-    bottom: 17px;
+    @include icon-position($icon-positon--small);
 }
+
 .c-formDropdown-icon-medium {
-    bottom: 21px;
+    @include icon-position($icon-positon--medium);
 }
+
 .c-formDropdown-icon-large {
-    bottom: 25px;
+    @include icon-position($icon-positon--large);
 }
+
 .c-formDropdown-icon {
     width: spacing(x1.5);
     position: absolute;
