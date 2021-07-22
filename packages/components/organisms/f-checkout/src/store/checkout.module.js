@@ -26,7 +26,7 @@ import {
     UPDATE_PHONE_NUMBER,
     UPDATE_STATE,
     UPDATE_TABLE_IDENTIFIER,
-    UPDATE_USER_NOTE
+    UPDATE_USER_NOTES
 } from './mutation-types';
 
 import checkoutIssues from '../checkout-issues';
@@ -108,12 +108,13 @@ export default {
             locality: '',
             postcode: ''
         },
-        userNote: '',
+        userNotes: {},
         isFulfillable: true,
         errors: [],
         notices: [],
         message: null,
         messages: [],
+        noteTypes: [],
         availableFulfilment: {
             times: [],
             isAsapAvailable: false
@@ -389,7 +390,7 @@ export default {
         },
 
         updateUserNote ({ commit, dispatch }, payload) {
-            commit(UPDATE_USER_NOTE, payload);
+            commit(UPDATE_USER_NOTES, payload);
             dispatch(`${VUEX_CHECKOUT_ANALYTICS_MODULE}/updateChangedField`, 'note', { root: true });
         },
 
@@ -398,7 +399,7 @@ export default {
                 const key = getUserNoteSessionStorageKey(state);
                 const note = window.sessionStorage.getItem(key);
                 if (note) {
-                    dispatch('updateUserNote', note);
+                    dispatch('updateUserNote', { type: 'delivery', note });
                 }
             }
         },
@@ -431,7 +432,9 @@ export default {
             fulfilment,
             isFulfillable,
             notices,
-            messages
+            messages,
+            noteTypes,
+            notes
         }) => {
             state.id = id;
             state.serviceType = serviceType;
@@ -469,6 +472,10 @@ export default {
             state.isFulfillable = isFulfillable;
             state.notices = notices;
             state.messages = messages;
+            // TODO: Maybe there's a way to make this nicer
+            state.userNotes = notes?.length > 0 ? { ...notes.map(({ type, note }) => ({ [type]: note })) } : {};
+            // TODO: Remove this ternary when backend is complete. Currently we send the notes value as delivery but the default will be restaurant
+            state.noteTypes = noteTypes.length > 0 ? noteTypes : ['delivery'];
         },
 
         [UPDATE_AUTH]: (state, authToken) => {
@@ -533,8 +540,11 @@ export default {
             state.errors = issues;
         },
 
-        [UPDATE_USER_NOTE]: (state, userNote) => {
-            state.userNote = userNote;
+        [UPDATE_USER_NOTES]: (state, userNote) => {
+            state.userNotes = {
+                ...state.userNotes,
+                [userNote.type]: userNote.note
+            };
         },
 
         [UPDATE_ORDER_PLACED]: (state, orderId) => {

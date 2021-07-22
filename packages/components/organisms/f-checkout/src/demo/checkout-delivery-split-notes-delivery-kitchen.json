@@ -22,7 +22,10 @@
     },
     "time": {
       "asap": false,
-      "scheduled": null
+      "scheduled": {
+        "from": "2020-01-01T01:30:00.000Z",
+        "to": "2020-01-01T01:30:00.000Z"
+      }
     }
   },
   "isFulfillable": true,
@@ -34,7 +37,6 @@
       }
     }
   ],
-  "noteTypes": ["restaurant"],
   "messages": [
     {
       "type": "warning",
@@ -47,6 +49,17 @@
       "message": {
         "text": "We're sorry, some items in your basket are no longer available"
       }
+    }
+  ],
+  "noteTypes": ["kitchen", "delivery"],
+  "notes": [
+    {
+      "type": "kitchen",
+      "note": "No ketchup on burger please"
+    },
+    {
+      "type": "delivery",
+      "note": "Phone when outside"
     }
   ]
 }

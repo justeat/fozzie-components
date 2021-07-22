@@ -18,7 +18,10 @@ const {
     ERROR_PAGE_COMPONENT,
     ERROR_PAGE_HEADING,
     ERROR_PAGE_DESCRIPTION,
-    ERROR_PAGE_IMAGE
+    ERROR_PAGE_IMAGE,
+    DELIVERY_ACCORDION_HEADER,
+    KITCHEN_ACCORDION_HEADER,
+    RESTAURANT_ACCORDION_HEADER
 } = require('./f-checkout-selectors');
 
 module.exports = class Checkout extends Page {
@@ -57,6 +60,12 @@ module.exports = class Checkout extends Page {
     get errorPageHeading () { return $(ERROR_PAGE_HEADING); }
 
     get errorPageImage () { return $(ERROR_PAGE_IMAGE); }
+
+    get deliveryAccordionHeader () { return $(DELIVERY_ACCORDION_HEADER); }
+
+    get kitchenAccordionHeader () { return $(KITCHEN_ACCORDION_HEADER); }
+
+    get restaurantAccordionHeader () { return $(RESTAURANT_ACCORDION_HEADER); }
 
     fields = {
         firstName: {
@@ -100,6 +109,18 @@ module.exports = class Checkout extends Page {
         tableIdentifier: {
             get input () { return $(FIELDS.tableIdentifier.input); },
             get maxLengthError () { return $(FIELDS.tableIdentifier.maxLengthError); }
+        },
+        deliveryNote: {
+            get input () { return $(FIELDS.deliveryNote.input); },
+            get error () { return ''; }
+        },
+        kitchenNote: {
+            get input () { return $(FIELDS.kitchenNote.input); },
+            get error () { return ''; }
+        },
+        restaurantNote: {
+            get input () { return $(FIELDS.restaurantNote.input); },
+            get error () { return ''; }
         }
     }
     /**
@@ -169,6 +190,10 @@ module.exports = class Checkout extends Page {
         return this.errorMessageDupOrderGoToHistory.click();
     }
 
+    clickAccordionHeader () {
+        return this.deliveryAccordionHeader.click();
+    }
+
     /**
     * @description
     * Inputs user details into the registration component and submits the form.
@@ -209,7 +234,6 @@ module.exports = class Checkout extends Page {
     * @param {String} addressInfo.line2 Second line of the user's address
     * @param {String} addressInfo.locality Locality of the user's address
     * @param {String} addressInfo.postcode Postcode of the user's address
-    * @param {String} addressInfo.note The user's extra note
     */
     populateCheckoutForm (addressInfo) {
         this.waitForComponent();
@@ -218,7 +242,6 @@ module.exports = class Checkout extends Page {
         this.fields.addressLine2.input.setValue(addressInfo.line2);
         this.fields.addressLocality.input.setValue(addressInfo.locality);
         this.fields.addressPostcode.input.setValue(addressInfo.postcode);
-        this.fields.userNote.input.setValue(addressInfo.note);
     }
 
     /**
@@ -232,7 +255,6 @@ module.exports = class Checkout extends Page {
     * @param {String} addressInfo.line2 Second line of the user's address
     * @param {String} addressInfo.locality Locality of the user's address
     * @param {String} addressInfo.postcode Postcode of the user's address
-    * @param {String} addressInfo.note The user's extra note
     */
     populateGuestCheckoutForm (addressInfo) {
         this.waitForComponent();
@@ -242,7 +264,6 @@ module.exports = class Checkout extends Page {
         this.fields.addressLine2.input.setValue(addressInfo.line2);
         this.fields.addressLocality.input.setValue(addressInfo.locality);
         this.fields.addressPostcode.input.setValue(addressInfo.postcode);
-        this.fields.userNote.input.setValue(addressInfo.note);
     }
 
     /**
@@ -252,13 +273,11 @@ module.exports = class Checkout extends Page {
     * @param {Object} customerInfo
     * @param {String} customerInfo.mobileNumber The user's mobile number
     * @param {String} customerInfo.tableIdentifier The user's table ID
-    * @param {String} customerInfo.note The user's extra note
     */
     populateDineInCheckoutForm (customerInfo) {
         this.waitForComponent();
         this.fields.mobileNumber.input.setValue(customerInfo.mobileNumber);
         this.fields.tableIdentifier.input.setValue(customerInfo.tableIdentifier);
-        this.fields.userNote.input.setValue(customerInfo.note);
     }
 
     /**
@@ -360,5 +379,29 @@ module.exports = class Checkout extends Page {
     goToPayment () {
         this.goToPaymentButton.scrollIntoView();
         this.goToPaymentButton.click();
+    }
+
+
+    /**
+    * @description
+    * Clicks accordion header of delivery notes and sets the value of the text area
+    *
+    * @param {String} noteType The note type to be opened and populated
+    * @param {String} note The value of the note
+    */
+    expandAndPopulateNote (noteType, note) {
+        switch (noteType) {
+            case 'delivery':
+                this.deliveryAccordionHeader.click();
+                this.fields.deliveryNote.input.setValue(note);
+                break;
+            case 'kitchen':
+                this.kitchenAccordionHeader.click();
+                this.fields.kitchenNote.input.setValue(note);
+                break;
+            default:
+                this.restaurantAccordionHeader.click();
+                this.fields.restaurantNote.input.setValue(note || 'restaurant note');
+        }
     }
 };

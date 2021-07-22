@@ -16,7 +16,9 @@ export const ERROR_PAGE_COMPONENT = '[data-test-id="checkout-error-page-componen
 export const ERROR_PAGE_HEADING = '[data-test-id="checkout-error-page-heading"]';
 export const ERROR_PAGE_DESCRIPTION = '[data-test-id="checkout-error-page-description"]';
 export const ERROR_PAGE_IMAGE = '[data-test-id="checkout-error-page-image"]';
-
+export const DELIVERY_ACCORDION_HEADER = '[data-test-id="delivery-accordion-header"]';
+export const KITCHEN_ACCORDION_HEADER = '[data-test-id="kitchen-accordion-header"]';
+export const RESTAURANT_ACCORDION_HEADER = '[data-test-id="restaurant-accordion-header"]';
 export const FIELDS = {
     firstName: {
         input: '[data-test-id="formfield-guest-first-name-input"]',
@@ -58,5 +60,14 @@ export const FIELDS = {
     },
     tableIdentifier: {
         input: '[data-test-id="formfield-table-identifier-input"]'
+    },
+    deliveryNote: {
+        input: '[data-test-id="formfield-delivery-note-textarea"]'
+    },
+    kitchenNote: {
+        input: '[data-test-id="formfield-kitchen-note-textarea"]'
+    },
+    restaurantNote: {
+        input: '[data-test-id="formfield-restaurant-note-textarea"]'
     }
 };

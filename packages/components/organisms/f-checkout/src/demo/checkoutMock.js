@@ -1,6 +1,8 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import getCheckoutDelivery from './checkout-delivery.json';
+import getCheckoutDeliverySplitNotesDeliveryKitchen from './checkout-delivery-split-notes-delivery-kitchen.json';
+import getCheckoutDeliverySplitNotesDelivery from './checkout-delivery-split-notes-delivery.json';
 import getCheckoutDeliveryAsapUrl from './checkout-delivery-user-selected-asap.json';
 import getCheckoutDeliveryLaterUrl from './checkout-delivery-user-selected-later.json';
 import getCheckoutDeliveryUnavailableUrl from './checkout-delivery-user-selected-unavailable-time.json';
@@ -36,6 +38,12 @@ export default {
         switch (path) {
             case '/checkout-delivery.json':
                 mock.onGet(path).reply(200, getCheckoutDelivery);
+                break;
+            case '/checkout-delivery-split-notes-delivery-kitchen.json':
+                mock.onGet(path).reply(200, getCheckoutDeliverySplitNotesDeliveryKitchen);
+                break;
+            case '/checkout-delivery-split-notes-delivery.json':
+                mock.onGet(path).reply(200, getCheckoutDeliverySplitNotesDelivery);
                 break;
             case '/checkout-delivery-user-selected-asap.json':
                 mock.onGet(path).reply(200, getCheckoutDeliveryAsapUrl);

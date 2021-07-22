@@ -97,19 +97,7 @@
 
                     <form-selector :key="availableFulfilmentTimesKey" />
 
-                    <form-field
-                        :label-text="$t(`userNote.${serviceType}.title`)"
-                        input-type="textarea"
-                        :placeholder="$t(`userNote.${serviceType}.placeholder`)"
-                        :value="userNote"
-                        cols="30"
-                        rows="7"
-                        maxlength="200"
-                        name="Note"
-                        has-input-description
-                        @input="updateUserNote($event)">
-                        {{ $t(`userNote.${serviceType}.text`) }}
-                    </form-field>
+                    <checkout-notes />
 
                     <f-button
                         :class="[
@@ -164,6 +152,7 @@ import { VueGlobalisationMixin } from '@justeat/f-globalisation';
 import VueScrollTo from 'vue-scrollto';
 import AddressBlock from './Address.vue';
 import CheckoutHeader from './Header.vue';
+import CheckoutNotes from './Notes.vue';
 import CheckoutTermsAndConditions from './TermsAndConditions.vue';
 import FormSelector from './Selector.vue';
 import GuestBlock from './Guest.vue';
@@ -209,6 +198,7 @@ export default {
         FButton,
         Card,
         CheckoutHeader,
+        CheckoutNotes,
         CheckoutTermsAndConditions,
         ErrorPage,
         ErrorMessage,
@@ -368,7 +358,7 @@ export default {
             'serviceType',
             'tableIdentifier',
             'time',
-            'userNote'
+            'userNotes'
         ]),
 
         wasMobileNumberFocused () {
@@ -659,7 +649,7 @@ export default {
                     isCheckoutMethodDelivery: this.isCheckoutMethodDelivery,
                     isCheckoutMethodDineIn: this.isCheckoutMethodDineIn,
                     time: this.time,
-                    userNote: this.userNote,
+                    userNotes: this.userNotes,
                     geolocation: this.geolocation,
                     asap: this.hasAsapSelected,
                     tableIdentifier: this.tableIdentifier
@@ -700,7 +690,8 @@ export default {
                 const data = {
                     basketId: this.basket.id,
                     customerNotes: {
-                        noteForRestaurant: this.userNote
+                        noteForRestaurant: this.userNotes.delivery?.note || this.userNotes.restaurant?.note,
+                        noteForKitchen: this.userNotes.kitchen.note
                     },
                     referralState: this.getReferralState()
                 };
@@ -811,7 +802,7 @@ export default {
 
                 this.$emit(EventNames.CheckoutAvailableFulfilmentGetSuccess);
             } catch (error) {
-                this.handleErrorState(new AvailableFulfilmentGetError(error.message, error.response.status));
+                this.handleErrorState(new AvailableFulfilmentGetError(error.message, error.response?.status));
             }
         },
 
