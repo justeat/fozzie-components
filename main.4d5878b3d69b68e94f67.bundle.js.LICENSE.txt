@@ -1,0 +1,5 @@
+/*!
+       * vue-i18n v8.0.0 
+       * (c) 2018 kazuya kawaguchi
+       * Released under the MIT License.
+       */
